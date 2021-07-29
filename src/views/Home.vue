@@ -55,9 +55,9 @@
         href: '/fifo'
       },
       {
-        text:'Segundo Elemento',
+        text:'Slow-Job-First',
         background: 'warning',
-        href: '#'
+        href: '/slow-job-first'
       },
       {
         text:'Tercer Elemento',

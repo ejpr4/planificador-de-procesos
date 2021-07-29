@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import fifo from '../views/fifo.vue'
+import Slow from '../views/slowJobFirst.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/fifo',
     name: 'fifo',
     component: fifo
+  },
+  {
+    path: '/slow-job-first',
+    name: 'slow-job-first',
+    component: Slow
   },
   {
     path: '/about',
