@@ -15,9 +15,6 @@
           <th class="text-center">
             t_exe
           </th>
-          <th class="text-center">
-            block
-          </th>
         </tr>
       </thead>
       <tbody>
@@ -28,7 +25,6 @@
           <td  class="text-center">{{ item.id }}</td>
           <td  class="text-center">{{ item.t_arr }}</td>
           <td  class="text-center">{{ item.t_exe }}</td>
-          <td  class="text-center">{{ item.block }}</td>
         </tr>
       </tbody>
     </template>
@@ -40,7 +36,7 @@ export default {
 name: 'TablaDeProcesos',
 props:{
   data:{
-    type: Object,
+    type: Array,
     required: true,
   }
 },

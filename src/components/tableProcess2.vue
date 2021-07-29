@@ -28,7 +28,7 @@ export default {
 name: 'TablaDeProcesos',
 props:{
   data:{
-    type: Object,
+    type: Array,
     required: true,
   }
 },
