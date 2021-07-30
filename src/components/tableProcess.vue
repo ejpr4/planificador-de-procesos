@@ -10,10 +10,10 @@
             Id
           </th>
           <th class="text-center">
-            t_arr
+            Tiempo de llegada a cola de procesos listos
           </th>
           <th class="text-center">
-            t_exe
+            Tiempo de ejecución
           </th>
         </tr>
       </thead>

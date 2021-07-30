@@ -9,7 +9,7 @@
       Algoritmo Slow Job First
     </h1>
   <v-row justify="center">
-  <v-col cols="6">
+  <v-col cols="10">
   <p class="subtitle text-center">
     La caracteristica de este algoritmo es tomar el proceso con menor tiempo de ejecución de la cola de listos y los envia al cpu para ser procesados.
   </p>

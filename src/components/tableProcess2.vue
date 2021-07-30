@@ -7,7 +7,7 @@
       <thead>
         <tr>
           <th class="text-center">
-            Id
+            Id Proceso
           </th>
         </tr>
       </thead>

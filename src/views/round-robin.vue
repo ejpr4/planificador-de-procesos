@@ -12,7 +12,7 @@
 
 
   <v-row justify="center">
-    <v-col cols="6">
+    <v-col cols="10">
       <p class="subtitle text-center">
         La caracteristica de este algoritmo son similares al de FiFo, utiliza una cola de procesos listos por orden de llegada pero le añade la tecnica de desalojo para conmutar entre procesos, definiendo una unidad de tiempo llamada quantum (cuanto de tiempo) y asignandole a cada proceso dentro del cpu ese tiempo determinado, sino termina el proceso dentro de 1 quantum, se retira el proceso y se pone al final de la cola de procesos listos y se continua con el primer elemento de la cola.
       </p>
