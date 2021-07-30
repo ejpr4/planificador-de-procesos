@@ -99,7 +99,6 @@
         incluir proceso
       </v-btn>
     </v-row>
-    <pre>{{count_quantum}}</pre>
     <v-row v-if="count > 0" justify="center" class="mt-8">
       <span>
           Paso: {{count -1}}
@@ -348,9 +347,12 @@ export default {
         this.cpu.push(this.process_ready.shift())
         this.cpu[0].t_cpu = 1
       } 
-      /* Si el proceso finalizo el tiempo de ejecución, sale del cpu y entra a la lista de finalizados */
+      /* Si el proceso finalizo el tiempo de ejecución, sale del cpu y entra a la lista de finalizados
+        Se reiniciar el quantum a 0
+      */
       else if( this.cpu.length > 0 && this.cpu[0].t_exe === 0 ){
         this.process_finished.push(this.cpu.pop())
+        this.count_quantum = 0
       } 
       /* Probabilidad de que el proceso de bloque y salga del procesador */
       else if(this.cpu.length > 0 && bloquearProceso){
@@ -364,7 +366,12 @@ export default {
           this.count_quantum += 1
           this.cpu[0].t_cpu += 1
           this.cpu[0].t_exe -= 1
-      } else if(this.count_quantum === this.quantum){
+      } 
+        /* Si el contador del quantum es igual al quantum saco el proceso del cpu
+         y lo pongo de ultimo en la cola de procesos listos
+         Reinicio el contador a 0
+         */
+      else if(this.count_quantum === this.quantum){
         this.count_quantum = 0
         this.process_ready.push(this.cpu.shift())
       }
