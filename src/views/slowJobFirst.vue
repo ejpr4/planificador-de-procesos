@@ -38,7 +38,7 @@
       <v-text-field 
         label="Tiempo de ejecución en milisegundos" 
         v-model="tiempoEjecución" 
-        type="numer"
+        type="number"
         :disabled="count > 0"
         />
       
@@ -49,7 +49,7 @@
         label="Promedio de tiempo de ejecución de procesos" 
         v-model="promedyExec"
         messages="bajo: 1-5, medio: 6-10, alto: 11-20 pasos"
-        type="numer"
+        type="number"
         :disabled="count > 0"
         />
       
@@ -59,7 +59,7 @@
         label="Promedio de creación de proceso por cada paso" 
         v-model="newPromedy"
         suffix="%"
-        type="numer" 
+        type="number" 
         hint="de 1 a 99"
         :disabled="count > 0"
         />

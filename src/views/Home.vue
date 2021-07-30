@@ -60,9 +60,9 @@
         href: '/slow-job-first'
       },
       {
-        text:'Tercer Elemento',
+        text:'Round Robin',
         background: 'indigo',
-        href: '#'
+        href: '/round-robin'
       }
       ],
     }),

@@ -6,14 +6,15 @@
       </v-btn>
     </div>
     <h1 class="text-center mb-4">
-      Algoritmo Fifo (First-in-first-out)
+      Algoritmo de planificación por turno <br>
+      (Round-Robin)
     </h1>
 
 
   <v-row justify="center">
     <v-col cols="6">
       <p class="subtitle text-center">
-        La caracteristica de este algoritmo es tomar el proceso que llego primero a la cola de listos y los envia al cpu para ser procesados.
+        La caracteristica de este algoritmo son similares al de FiFo, utiliza una cola de procesos listos por orden de llegada pero le añade la tecnica de desalojo para conmutar entre procesos, definiendo una unidad de tiempo llamada quantum (cuanto de tiempo) y asignandole a cada proceso dentro del cpu ese tiempo determinado, sino termina el proceso dentro de 1 quantum, se retira el proceso y se pone al final de la cola de procesos listos y se continua con el primer elemento de la cola.
       </p>
     </v-col>
   </v-row>
@@ -24,7 +25,7 @@
             Procesos a ejecutar
           </p>
           <p class="text-subtitle">
-            A continuación de muestran los procesos que se van a a ejecutar haciendo uso del algoritmo Fifo; al iniciar la ejecución se generarán nuevos procesos con tiempo de ejecución aleatorios que se puede configurar, se podra incluir procesos de manera manual, la velocidad de los pasos, el porcentaje de probabilidad de creación de un proceso por cada paso, al igual que el promedio de procesos bloqueados tambien son configurables.
+            A continuación de muestran los procesos que se van a a ejecutar haciendo uso del algoritmo Round-Robin; al iniciar la ejecución se generarán nuevos procesos con tiempo de ejecución aleatorios que se puede configurar, se podra incluir procesos de manera manual, la velocidad de los pasos, el porcentaje de probabilidad de creación de un proceso por cada paso, al igual que el promedio de procesos bloqueados tambien son configurables. Se tomara un Quantum de 3 pasos (este parametro es configurable)
           </p>
           <v-row justify="center">
             <v-col cols="12">
@@ -67,6 +68,15 @@
         />
       
       <v-spacer/>
+      <v-text-field 
+        label="Quantum" 
+        v-model="quantum"
+        type="number" 
+        hint="mayor o igual a 1"
+        :disabled="count > 0"
+        />
+      
+      <v-spacer/>
       
       <v-select 
         :items="itemsProbabilityBlock" 
@@ -89,7 +99,7 @@
         incluir proceso
       </v-btn>
     </v-row>
-    
+    <pre>{{count_quantum}}</pre>
     <v-row v-if="count > 0" justify="center" class="mt-8">
       <span>
           Paso: {{count -1}}
@@ -155,6 +165,8 @@ export default {
       intervalo: '',
       count: 0,
       newPromedy: 25,
+      quantum: 3,
+      count_quantum: 0,
       promedyExec: 5,
       tiempoEjecución: 1000,
       cpu: [],
@@ -347,10 +359,14 @@ export default {
         newProcessBlock.hasBlocked = true
         this.process_block.push(newProcessBlock)
       }
-      /* Quemo 1 tiempo en el proceso */
-        else if(this.cpu.length > 0){
+      /* Quemo 1 tiempo en el proceso y aumento el contador del quantum*/
+        else if(this.cpu.length > 0 && this.count_quantum < this.quantum){
+          this.count_quantum += 1
           this.cpu[0].t_cpu += 1
           this.cpu[0].t_exe -= 1
+      } else if(this.count_quantum === this.quantum){
+        this.count_quantum = 0
+        this.process_ready.push(this.cpu.shift())
       }
 
       /* Aumento el tiempo */

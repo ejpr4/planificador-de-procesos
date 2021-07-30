@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import fifo from '../views/fifo.vue'
+import roundRobin from '../views/round-robin.vue'
 import Slow from '../views/slowJobFirst.vue'
 
 Vue.use(VueRouter)
@@ -21,6 +22,11 @@ const routes = [
     path: '/slow-job-first',
     name: 'slow-job-first',
     component: Slow
+  },
+  {
+    path: '/round-robin',
+    name: 'round-robin',
+    component: roundRobin
   },
   {
     path: '/about',
