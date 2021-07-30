@@ -1,21 +1,28 @@
 <template>
   <v-container>
-    <h1 class="text-center">
-      Algoritmo Fifo (First-in-first-out)
-    </h1>
     <div class="d-flex">
-  <v-btn color="primary" to="/" right class="ml-auto">
-    Regresar
-  </v-btn>
-  </div>
+      <v-btn color="primary" to="/" right class="ml-auto">
+        Regresar
+      </v-btn>
+    </div>
+    <h1 class="text-center mb-4">
+      Algoritmo Slow Job First
+    </h1>
+  <v-row justify="center">
+  <v-col cols="6">
+  <p class="subtitle text-center">
+    La caracteristica de este algoritmo es tomar el proceso con menor tiempo de ejecución de la cola de listos y los envia al cpu para ser procesados.
+  </p>
+  </v-col>
+  </v-row>
     <v-row class="text-center">
       <v-col cols="12">
         <v-container>
-          <p class="text-h4">
+          <p class="text-h5 font-weight-bold">
             Procesos a ejecutar
           </p>
           <p class="text-subtitle">
-            A continuación de muestran los procesos que se van a a ejecutar haciendo uso del algoritmo Fifo, al iniciar la ejecución se generarán nuevo procesos con tiempo de ejecución aleatorios (de 1 a 5 pasos) y un porcentaje de 25% de probabilidades de creación en cada paso, ademas se podra incluir procesos de manera manual; los pasos se pueden configurar, al igual que el promedio de procesos bloqueados.
+            A continuación de muestran los procesos que se van a a ejecutar haciendo uso del algoritmo Slow-Job-First (el de menor trabajo primero), al iniciar la ejecución se generarán nuevos procesos con tiempo de ejecución aleatorios que se puede configurar, se podra incluir procesos de manera manual, la velocidad de los pasos, el porcentaje de probabilidad de creación de un proceso por cada paso, al igual que el promedio de procesos bloqueados tambien son configurables.
           </p>
           <v-row justify="center">
             <v-col cols="12">
@@ -277,7 +284,6 @@ export default {
     proceso(){
       /* Variable aleatoria para bloequear un proceso en cpu */
       const bloquearProceso = aleatorio(1,10) < this.probabilityBlock
-      console.log(bloquearProceso)
       if(this.count > 8){
         /* Crear un nuevo proceso con newPromedy de probabilidad en el paso actual */
         if(Math.floor(Math.random() * 100) + 1 >= 100 - this.newPromedy){
@@ -293,6 +299,7 @@ export default {
       if(nuevoProceso.length > 0){
         this.process_ready.push(JSON.parse(JSON.stringify(nuevoProceso[0])))
       }
+
       /* Se le agrega una unidad de espera a los procesos que estan en la cola de listos*/
       if(this.process_ready.length > 0){
         this.process_ready.map(item =>{
@@ -300,6 +307,8 @@ export default {
         })
       }
 
+      /* Ordena la cola de listos con los procesos de menor tiempo de ejecución primero*/
+      this.process_ready.sort((a, b) => a.t_exe - b.t_exe )
       /* ***************** Bloqueo********************* */
       /* Se evalua si hay un proceso en la cola de bloqueados
         si hay procesos bloqueados se quita 1 unidad de tiempo 
@@ -307,7 +316,6 @@ export default {
       */
       if(this.process_block.length>0){
         this.process_block = this.process_block.map(item=>{
-          console.log(`item: ${JSON.stringify(item)}`)
           item.t_block -=1
           return item
         })
